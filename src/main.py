@@ -21,7 +21,7 @@ import yt_dlp
 from pedalboard import Pedalboard, Reverb, Compressor, HighpassFilter
 from pedalboard.io import AudioFile
 from pydub import AudioSegment
-from dotenv import load_dotenv
+
 
 from mdx import run_mdx
 from rvc import Config, load_hubert, get_vc, rvc_infer
@@ -34,7 +34,7 @@ mdxnet_models_dir = os.path.join(BASE_DIR, 'mdxnet_models')
 rvc_models_dir = os.path.join(BASE_DIR, 'rvc_models')
 output_dir = os.path.join(BASE_DIR, 'song_output')
 
-UPLOAD_MODE = "s3":
+UPLOAD_MODE = "s3"
 BUCKET_AREA = os.environ.get("BUCKET_AREA", None)
 BUCKET_ENDPOINT_URL = os.environ.get("BUCKET_ENDPOINT_URL", None)
 BUCKET_ACCESS_KEY_ID = os.environ.get("BUCKET_ACCESS_KEY_ID", None)
