@@ -56,7 +56,7 @@ def download_online_model(url, dir_name):
     except Exception as e:
         raise Exception(str(e))
 
-url = "https://pixeldrain.com/u/3tJmABXA" # @param {type:"string"}
-dir_name = "Gura" # @param {type:"string"}
+url = "https://pixeldrain.com/u/BrfoCLYe" # @param {type:"string"}
+dir_name = "Modi" # @param {type:"string"}
 
 download_online_model(url, dir_name)

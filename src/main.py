@@ -26,7 +26,7 @@ from pydub import AudioSegment
 from mdx import run_mdx
 from rvc import Config, load_hubert, get_vc, rvc_infer
 
-load_dotenv()
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -384,7 +384,7 @@ def song_cover_pipeline(song_input, voice_model, pitch_change, keep_files,
                 if file and os.path.exists(file):
                     os.remove(file)
         # Usage example
-        folder_to_delete = '../song_output/123456'
+        folder_to_delete = '/workspace/ai-music-demo/song_output/123456'
         force_delete_folder(folder_to_delete)
     
         return {"url":audio_url}
