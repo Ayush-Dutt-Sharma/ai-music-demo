@@ -26,7 +26,25 @@ OUTPUT_FORMAT = "mp3" # @param ["mp3", "wav"]
 import subprocess
 import runpod 
 def handler(job):
-    job['input']['song']
+   
+    if (not job):
+        return {"error":"Something wrong in the input"}
+    if not job["input"]:
+        return {"error":"Not getting input"}
+    if not job["input"]["song"]:
+        return {"error":"Invalid song url input"}
+    if not job["policy"]:
+        return {"error":"Without policy, execution not allowed"}
+    if not job["policy"]["executionTimeout"]:
+        return {"error":"Specify the Execution Timeout"}
+    if not job["policy"]["ttl"]:
+        return {"error":"Specify the Time-to-Live"}
+    if job["policy"]["executionTimeout"]>300000:
+        return {"error":"Execution Timeout should be under 300000"} 
+    if job["policy"]["ttl"]>60000:
+        return {"error":"Time-to-Live should be under 60000"}
+    
+    
     command = [
         "python",
         "src/main.py",
@@ -54,13 +72,26 @@ def handler(job):
     # Open a subprocess and capture its output
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True)
 
+    # Capture all lines from stdout
+    output_lines = []
+    for line in process.stdout:
+        output_lines.append(line)
+
+    # Get the last line from the captured output
+    last_line = output_lines[-1] if output_lines else None
+
+   
+    
+
     # Print the output in real-time
     for line in process.stdout:
         print(line, end='')
 
     # Wait for the process to finish
     process.wait()
+    return {"url":last_line}
 
 runpod.serverless.start({
         "handler": handler,
+        "concurrency_modifier":5
     })
