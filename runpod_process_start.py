@@ -24,31 +24,31 @@ REVERB_DAMPING = 0.7 # @param {type:"number"}
 OUTPUT_FORMAT = "mp3" # @param ["mp3", "wav"]
 
 import subprocess
-import runpod 
+# import runpod 
 def handler(job):
    
-    if (not job):
-        return {"error":"Something wrong in the input"}
-    if not job["input"]:
-        return {"error":"Not getting input"}
-    if not job["input"]["song"]:
-        return {"error":"Invalid song url input"}
-    if not job["policy"]:
-        return {"error":"Without policy, execution not allowed"}
-    if not job["policy"]["executionTimeout"]:
-        return {"error":"Specify the Execution Timeout"}
-    if not job["policy"]["ttl"]:
-        return {"error":"Specify the Time-to-Live"}
-    if job["policy"]["executionTimeout"]>300000:
-        return {"error":"Execution Timeout should be under 300000"} 
-    if job["policy"]["ttl"]>60000:
-        return {"error":"Time-to-Live should be under 60000"}
+    # if (not job):
+    #     return {"error":"Something wrong in the input"}
+    # if not job["input"]:
+    #     return {"error":"Not getting input"}
+    # if not job["input"]["song"]:
+    #     return {"error":"Invalid song url input"}
+    # if not job["policy"]:
+    #     return {"error":"Without policy, execution not allowed"}
+    # if not job["policy"]["executionTimeout"]:
+    #     return {"error":"Specify the Execution Timeout"}
+    # if not job["policy"]["ttl"]:
+    #     return {"error":"Specify the Time-to-Live"}
+    # if job["policy"]["executionTimeout"]>120000:
+    #     return {"error":"Execution Timeout should be under 120000"} 
+    # if job["policy"]["ttl"]>60000:
+    #     return {"error":"Time-to-Live should be under 60000"}
     
     
     command = [
         "python",
         "src/main.py",
-        "-i", job['input']['song'],
+        "-i", SONG_INPUT,
         "-dir", RVC_DIRNAME,
         "-p", str(PITCH_CHANGE),
         "-k",
@@ -73,12 +73,12 @@ def handler(job):
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True)
 
     # Capture all lines from stdout
-    output_lines = []
-    for line in process.stdout:
-        output_lines.append(line)
+    # output_lines = []
+    # for line in process.stdout:
+    #     output_lines.append(line)
 
-    # Get the last line from the captured output
-    last_line = output_lines[-1] if output_lines else None
+    # # Get the last line from the captured output
+    # last_line = output_lines[-1] if output_lines else None
 
    
     
@@ -89,9 +89,9 @@ def handler(job):
 
     # Wait for the process to finish
     process.wait()
-    return {"url":last_line}
+    # return {"url":last_line}
 
-runpod.serverless.start({
-        "handler": handler,
-        "concurrency_modifier":5
-    })
+# runpod.serverless.start({
+#         "handler": handler,
+#         "concurrency_modifier":5
+#     })
