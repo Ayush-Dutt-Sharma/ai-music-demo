@@ -24,74 +24,37 @@ REVERB_DAMPING = 0.7 # @param {type:"number"}
 OUTPUT_FORMAT = "mp3" # @param ["mp3", "wav"]
 
 import subprocess
-# import runpod 
-def handler(job):
-   
-    # if (not job):
-    #     return {"error":"Something wrong in the input"}
-    # if not job["input"]:
-    #     return {"error":"Not getting input"}
-    # if not job["input"]["song"]:
-    #     return {"error":"Invalid song url input"}
-    # if not job["policy"]:
-    #     return {"error":"Without policy, execution not allowed"}
-    # if not job["policy"]["executionTimeout"]:
-    #     return {"error":"Specify the Execution Timeout"}
-    # if not job["policy"]["ttl"]:
-    #     return {"error":"Specify the Time-to-Live"}
-    # if job["policy"]["executionTimeout"]>120000:
-    #     return {"error":"Execution Timeout should be under 120000"} 
-    # if job["policy"]["ttl"]>60000:
-    #     return {"error":"Time-to-Live should be under 60000"}
-    
-    
-    command = [
-        "python",
-        "src/main.py",
-        "-i", SONG_INPUT,
-        "-dir", RVC_DIRNAME,
-        "-p", str(PITCH_CHANGE),
-        "-k",
-        "-ir", str(INDEX_RATE),
-        "-fr", str(FILTER_RADIUS),
-        "-rms", str(REMIX_MIX_RATE),
-        "-palgo", PITCH_DETECTION_ALGO,
-        "-hop", str(CREPE_HOP_LENGTH),
-        "-pro", str(PROTECT),
-        "-mv", str(MAIN_VOL),
-        "-bv", str(BACKUP_VOL),
-        "-iv", str(INST_VOL),
-        "-pall", str(PITCH_CHANGE_ALL),
-        "-rsize", str(REVERB_SIZE),
-        "-rwet", str(REVERB_WETNESS),
-        "-rdry", str(REVERB_DRYNESS),
-        "-rdamp", str(REVERB_DAMPING),
-        "-oformat", OUTPUT_FORMAT
-    ]
 
-    # Open a subprocess and capture its output
-    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True)
+command = [
+    "python",
+    "src/main.py",
+    "-i", SONG_INPUT,
+    "-dir", RVC_DIRNAME,
+    "-p", str(PITCH_CHANGE),
+    "-k",
+    "-ir", str(INDEX_RATE),
+    "-fr", str(FILTER_RADIUS),
+    "-rms", str(REMIX_MIX_RATE),
+    "-palgo", PITCH_DETECTION_ALGO,
+    "-hop", str(CREPE_HOP_LENGTH),
+    "-pro", str(PROTECT),
+    "-mv", str(MAIN_VOL),
+    "-bv", str(BACKUP_VOL),
+    "-iv", str(INST_VOL),
+    "-pall", str(PITCH_CHANGE_ALL),
+    "-rsize", str(REVERB_SIZE),
+    "-rwet", str(REVERB_WETNESS),
+    "-rdry", str(REVERB_DRYNESS),
+    "-rdamp", str(REVERB_DAMPING),
+    "-oformat", OUTPUT_FORMAT
+]
 
-    # Capture all lines from stdout
-    # output_lines = []
-    # for line in process.stdout:
-    #     output_lines.append(line)
+# Open a subprocess and capture its output
+process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True)
 
-    # # Get the last line from the captured output
-    # last_line = output_lines[-1] if output_lines else None
+# Print the output in real-time
+for line in process.stdout:
+    print(line, end='')
 
-   
-    
-
-    # Print the output in real-time
-    for line in process.stdout:
-        print(line, end='')
-
-    # Wait for the process to finish
-    process.wait()
-    # return {"url":last_line}
-
-# runpod.serverless.start({
-#         "handler": handler,
-#         "concurrency_modifier":5
-#     })
+# Wait for the process to finish
+process.wait()
