@@ -56,7 +56,12 @@ def download_online_model(url, dir_name):
     except Exception as e:
         raise Exception(str(e))
 
-url = "https://pixeldrain.com/u/BrfoCLYe" # @param {type:"string"}
-dir_name = "Modi" # @param {type:"string"}
+allModels = [{"url":"https://pixeldrain.com/u/BrfoCLYe",'dir_name':'Modi'}
+             ,{'url':"https://pixeldrain.com/u/SFxoXuFs",'dir_name':'Trump'},
+             {'url':'https://pixeldrain.com/u/sqWgbtUP','dir_name':'SRK'},
+             {'url':'https://pixeldrain.com/u/d4YVUQ9g','dir_name':'Biden'},
+             {'url':'https://pixeldrain.com/u/HoyfiGy1','dir_name':'Elon'}]
 
-download_online_model(url, dir_name)
+
+for model in allModels:
+    download_online_model(model['url'], model['dir_name'])

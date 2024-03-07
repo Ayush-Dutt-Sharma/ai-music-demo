@@ -208,12 +208,12 @@ def preprocess_song(song_input, mdx_model_params, song_id, is_webui, input_type,
     song_link = song_input
     # orig_song_path = yt_download(song_link)
 
-    ext = song_link.split(".")[-1]
+    # ext = song_link.split(".")[-1]
 
     work_uuid = uuid.uuid4()
 
     # save
-    inp_audio_path = f"/tmp/{work_uuid}.{ext}"
+    inp_audio_path = f"/tmp/{work_uuid}.{'mp3'}"
     orig_song_path = inp_audio_path
     with open(inp_audio_path, "wb") as f:
         f.write(requests.get(song_link).content)

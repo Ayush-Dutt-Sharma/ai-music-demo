@@ -28,28 +28,30 @@ import runpod
 def handler(job):
    
     if (not job):
-        return {"error":"Something wrong in the input"}
+        return {"output":{"error":"Something wrong in the input"}}
     if not job["input"]:
-        return {"error":"Not getting input"}
+        return {"output":{"error":"Not getting input"}}
     if not job["input"]["song"]:
-        return {"error":"Invalid song url input"}
+        return {"output":{"error":"Invalid song url input"}}
+    if not job["input"]["rvc"]:
+        return {"output":{"error":"Invalid rvc input"}}
     if not job["policy"]:
-        return {"error":"Without policy, execution not allowed"}
+        return {"output":{"error":"Without policy, execution not allowed"}}
     if not job["policy"]["executionTimeout"]:
-        return {"error":"Specify the Execution Timeout"}
+        return {"output":{"error":"Specify the Execution Timeout"}}
     if not job["policy"]["ttl"]:
-        return {"error":"Specify the Time-to-Live"}
+        return {"output":{"error":"Specify the Time-to-Live"}}
     if job["policy"]["executionTimeout"]>300000:
-        return {"error":"Execution Timeout should be under 300000"} 
-    if job["policy"]["ttl"]>60000:
-        return {"error":"Time-to-Live should be under 60000"}
+        return {"output":{"error":"Execution Timeout should be under 300000"}}
+    if job["policy"]["ttl"]>300000:
+        return {"output":{"error":"Time-to-Live should be under 60000"}}
     
     
     command = [
         "python",
         "src/main.py",
         "-i", job['input']['song'],
-        "-dir", RVC_DIRNAME,
+        "-dir", job['input']['rvc'],
         "-p", str(PITCH_CHANGE),
         "-k",
         "-ir", str(INDEX_RATE),
@@ -89,9 +91,9 @@ def handler(job):
 
     # Wait for the process to finish
     process.wait()
-    return {"url":last_line}
+    return {"output":{"url":last_line}}
 
 runpod.serverless.start({
         "handler": handler,
-        "concurrency_modifier":5
+        "concurrency_modifier":2
     })
