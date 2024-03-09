@@ -94,6 +94,5 @@ def handler(job):
     return {"output":{"url":last_line}}
 
 runpod.serverless.start({
-        "handler": handler,
-        "concurrency_modifier":2
+        "handler": handler
     })
