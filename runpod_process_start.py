@@ -75,12 +75,12 @@ def handler(job):
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True)
 
     # Capture all lines from stdout
-    output_lines = []
-    for line in process.stdout:
-        output_lines.append(line)
+    # output_lines = []
+    # for line in process.stdout:
+    #     output_lines.append(line)
 
-    # Get the last line from the captured output
-    last_line = output_lines[-1] if output_lines else None
+    # # Get the last line from the captured output
+    # last_line = output_lines[-1] if output_lines else None
 
    
     
@@ -91,7 +91,7 @@ def handler(job):
 
     # Wait for the process to finish
     process.wait()
-    return {"output":{"url":last_line}}
+    # return {"output":{"url":last_line}}
 
 runpod.serverless.start({
         "handler": handler
