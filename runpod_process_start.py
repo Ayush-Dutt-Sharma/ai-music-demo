@@ -27,24 +27,24 @@ import subprocess
 import runpod 
 def handler(job):
    
-    if (not job):
-        return {"output":{"error":"Something wrong in the input"}}
-    if not job["input"]:
-        return {"output":{"error":"Not getting input"}}
-    if not job["input"]["song"]:
-        return {"output":{"error":"Invalid song url input"}}
-    if not job["input"]["rvc"]:
-        return {"output":{"error":"Invalid rvc input"}}
-    if not job["policy"]:
-        return {"output":{"error":"Without policy, execution not allowed"}}
-    if not job["policy"]["executionTimeout"]:
-        return {"output":{"error":"Specify the Execution Timeout"}}
-    if not job["policy"]["ttl"]:
-        return {"output":{"error":"Specify the Time-to-Live"}}
-    if job["policy"]["executionTimeout"]>300000:
-        return {"output":{"error":"Execution Timeout should be under 300000"}}
-    if job["policy"]["ttl"]>300000:
-        return {"output":{"error":"Time-to-Live should be under 60000"}}
+    # if (not job):
+    #     return {"output":{"error":"Something wrong in the input"}}
+    # if not job["input"]:
+    #     return {"output":{"error":"Not getting input"}}
+    # if not job["input"]["song"]:
+    #     return {"output":{"error":"Invalid song url input"}}
+    # if not job["input"]["rvc"]:
+    #     return {"output":{"error":"Invalid rvc input"}}
+    # if not job["policy"]:
+    #     return {"output":{"error":"Without policy, execution not allowed"}}
+    # if not job["policy"]["executionTimeout"]:
+    #     return {"output":{"error":"Specify the Execution Timeout"}}
+    # if not job["policy"]["ttl"]:
+    #     return {"output":{"error":"Specify the Time-to-Live"}}
+    # if job["policy"]["executionTimeout"]>300000:
+    #     return {"output":{"error":"Execution Timeout should be under 300000"}}
+    # if job["policy"]["ttl"]>300000:
+    #     return {"output":{"error":"Time-to-Live should be under 60000"}}
     
     
     command = [
