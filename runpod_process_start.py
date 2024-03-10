@@ -25,6 +25,7 @@ OUTPUT_FORMAT = "mp3" # @param ["mp3", "wav"]
 
 import subprocess
 import runpod 
+
 def handler(job):
    
     # if (not job):
@@ -88,6 +89,9 @@ def handler(job):
     # Print the output in real-time
     for line in process.stdout:
         print(line, end='')
+        if line.startswith('[+] Cover generated at'):
+            return{"url":line}
+        
 
     # Wait for the process to finish
     process.wait()
